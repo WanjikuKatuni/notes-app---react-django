@@ -15,6 +15,8 @@ export const NotePage = () => {
   }, []);
 
   async function getNote() {
+    if(params.id === 'new') return
+
     try {
       const response = await fetch(`http://localhost:4000/notes/${params.id}`);
       const jsonData = await response.json();
@@ -34,10 +36,47 @@ export const NotePage = () => {
     });
 
   }
+
+//   delete
+async function deleteNote(){
+    await fetch(`http://localhost:4000/notes/${params.id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }, 
+        body: JSON.stringify(note)
+    })
+}
+
+
+// create note
+async function createNote(){
+    console.log('create note')
+    await fetch(`http://localhost:4000/notes/`,{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({...note, 'updated':new Date()})
+    })
+}
 // SUBMIT UPDATED NOTE
   function handleSubmit(){
-    updateNote()
+    // delete after edit removes all info
+    if(params.id !== 'new' && !note.body){
+        deleteNote()
+    }else if(params.id !== 'new'){
+        updateNote()
+    } else if(params.id === 'new' && note !== null){
+        createNote()
+
+    }
+
+    // // update note logic
+    // updateNote()
   }
+
+
 
   return (
     <div className="note">
@@ -47,6 +86,17 @@ export const NotePage = () => {
             <AiOutlineLeft onClick={handleSubmit} /> 
           </Link>
         </h3>
+
+        {params.id !== 'new' ? (
+
+        <Link to='/'>
+            <button onClick={deleteNote}>Delete</button>
+        </Link>
+        ):(
+        <Link to='/'>
+            <button onClick={handleSubmit}>Done</button>
+        </Link>
+        )}
       </div>
       <textarea onChange={(e)=>{setNote({...note, 'body':e.target.value})}} value={note.body}></textarea>
     </div>
