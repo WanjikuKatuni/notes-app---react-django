@@ -2,15 +2,18 @@
   "notes": [
     {
       "id": 1,
-      "body": "Todays Agenda\n- Chamber of commerce meeting\n- Standup meeting\n- Dinner"
+      "body": "Todays Agenda\n- Chamber of commerce meeting\n- Standup meeting\n- Dinner\n- code\n- dont give up",
+      "updated": "2023-07-20T07:48:47.102Z"
     },
     {
       "id": 2,
-      "body": "Take out trash\n"
+      "body": "Take out trash\nwash clothes\nclean the house\n",
+      "updated": "2023-07-20T07:49:10.384Z"
     },
     {
-     "id": 3,
-      "body": "Wash car"
+      "id": 3,
+      "body": "Wash car\nsleep it off",
+      "updated": "2023-07-20T07:49:17.773Z"
     }
   ]
 }

@@ -23,17 +23,32 @@ export const NotePage = () => {
       console.error("error fetching data:", error);
     }
   }
+// UPDATE NOTE
+  async function updateNote(){
+    await fetch(`http://localhost:4000/notes/${params.id}`,{
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({...note, 'updated':new Date()})
+    });
+
+  }
+// SUBMIT UPDATED NOTE
+  function handleSubmit(){
+    updateNote()
+  }
 
   return (
     <div className="note">
       <div className="note-header">
         <h3>
           <Link to="/">
-            <AiOutlineLeft />
+            <AiOutlineLeft onClick={handleSubmit} /> 
           </Link>
         </h3>
       </div>
-      <textarea value={note.body}></textarea>
+      <textarea onChange={(e)=>{setNote({...note, 'body':e.target.value})}} value={note.body}></textarea>
     </div>
   );
 };
