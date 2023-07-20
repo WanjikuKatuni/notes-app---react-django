@@ -1,8 +1,27 @@
-import React from 'react'
-import notes from '../assets/data'
+import React, { useEffect, useState } from 'react'
+// import notes from '../assets/data'
 import { ListItem } from '../components/ListItem'
 
 export const NotesListPage = () => {
+
+
+  let [notes, setNotes] = useState([])
+
+  useEffect(() => {
+    getNotes()
+  }, [])
+
+  async function getNotes(){
+    try {
+      const response = await fetch('http://localhost:4000/notes');
+      const jsonData = await response.json();
+      setNotes(jsonData)
+    } catch (error) {
+      console.error('error fetching data:', error)
+    }
+    
+
+  } 
   return (
     <div className='notes'>
         <div className='notes-header'>
